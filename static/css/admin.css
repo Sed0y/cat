@@ -1,0 +1,35 @@
+
+#AccessTables
+{
+	width: 100%;
+}
+
+#AccessTables .Update,
+#ReloadOISUU
+{
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+#AccessTables .Update:hover,
+#ReloadOISUU:hover
+{
+	color: #bb5353;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
