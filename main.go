@@ -29,11 +29,11 @@ func init() {
 	conf.DB_postgres, err = sql.Open("postgres", dbinfo)
 	if err != nil {
 		log.Fatal(err)
+	} else {
+		fmt.Println("Database connected")
+		App.Categories.Load()
+		controllers.App = &App
 	}
-
-	App.Categories.Load()
-
-	controllers.App = &App
 
 }
 
