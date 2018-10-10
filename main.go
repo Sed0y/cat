@@ -47,8 +47,6 @@ func main() {
 
 	fmt.Println("end")
 
-	return
-
-	fmt.Println("start!")
+	fmt.Println("start beego!")
 	beego.Run()
 }
