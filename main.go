@@ -3,20 +3,19 @@ package main
 import (
 	//"cat/conf"
 	//"cat/controllers"
-	"cat/models"
+	//"cat/models"
 
-	_ "cat/routers"
+	//_ "cat/routers"
 	//"database/sql"
 
-	"github.com/astaxie/beego"
+	//"github.com/astaxie/beego"
 
 	"fmt"
 	//"log"
-
-	_ "github.com/lib/pq"
+	//_ "github.com/lib/pq"
 )
 
-var App models.Application
+//var App models.Application
 
 func init() {
 
@@ -64,5 +63,5 @@ func main() {
 		return
 	*/
 	fmt.Println("start!")
-	beego.Run()
+	//beego.Run()
 }
