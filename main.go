@@ -5,7 +5,7 @@ import (
 	"cat/controllers"
 	"cat/models"
 
-	//_ "cat/routers"
+	_ "cat/routers"
 	"database/sql"
 
 	"github.com/astaxie/beego"
@@ -45,8 +45,17 @@ func main() {
 		fmt.Println(App.Categories.List[i])
 	}
 
+	fmt.Println("sort")
+	fmt.Println(App.Categories.RenderToAdminPanel())
+
+	for i := 0; i < len(App.Categories.List); i++ {
+		fmt.Println(App.Categories.List[i])
+	}
+
 	fmt.Println("end")
 
 	fmt.Println("start beego!")
+
 	beego.Run()
+
 }

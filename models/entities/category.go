@@ -4,7 +4,7 @@ import (
 	"cat/conf"
 	"strconv"
 
-	"fmt"
+	//"fmt"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -22,7 +22,10 @@ type Category struct {
 	Level int
 
 	Weight int    // Вес категории для сортировки
-	Name   string //Название категории
+	Name   string // Название категории
+	Active bool   // Активна/отображается или нет
+	URL    string // Адрес категории
+
 }
 
 func (c *Category) Create() bool {
@@ -47,13 +50,15 @@ func (c *Category) Create() bool {
 	}
 
 	query := "INSERT INTO public.category( "
-	query += "  id, parent_id, level, weight, name)"
+	query += "  id, parent_id, level, weight, name, active, url)"
 	query += "VALUES ( "
 	query += string(max_id) + ", "
 	query += strconv.Itoa(c.ParentId) + ", "
 	query += strconv.Itoa(c.Level) + ", "
 	query += strconv.Itoa(c.Weight) + ", "
-	query += "'" + c.Name + "' "
+	query += "'" + c.Name + "', "
+	query += " false ,"
+	query += "'" + c.URL + "' "
 	query += ");"
 
 	_, err = conf.DB_postgres.Exec(query)
@@ -74,14 +79,20 @@ func (c *Category) Update() bool {
 	query += "  parent_id = " + strconv.Itoa(c.ParentId) + " , "
 	query += "  level = " + strconv.Itoa(c.Level) + ", "
 	query += "  weight = " + strconv.Itoa(c.Weight) + ", "
-	query += "  name = '" + c.Name + "' "
+	query += "  name = '" + c.Name + "', "
+	if c.Active == true {
+		query += "  active = true, "
+	} else {
+		query += "  active = false, "
+	}
+	query += "  name = '" + c.URL + "' "
 	query += "WHERE "
 	query += "  id = " + strconv.Itoa(c.Id) + ";"
 
-	sql_res, err := conf.DB_postgres.Exec(query)
+	_, err := conf.DB_postgres.Exec(query)
 
 	if err != nil {
-		fmt.Println(sql_res)
+		//fmt.Println(sql_res)
 		log.Fatal(err)
 		return false
 	}
@@ -95,10 +106,10 @@ func (c *Category) Delete() bool {
 	query += "WHERE "
 	query += "  id = " + strconv.Itoa(c.Id) + ";"
 
-	sql_res, err := conf.DB_postgres.Exec(query)
+	_, err := conf.DB_postgres.Exec(query)
 
 	if err != nil {
-		fmt.Println(sql_res)
+		//fmt.Println(sql_res)
 		log.Fatal(err)
 		return false
 	}

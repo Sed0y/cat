@@ -43,7 +43,9 @@ CREATE TABLE category (
     parent_id integer,
     level integer,
     weight integer,
-    name character varying(128)
+    name character varying(128),
+    active boolean NOT NULL,
+    url character varying(256)
 );
 
 
@@ -53,11 +55,13 @@ ALTER TABLE category OWNER TO postgres;
 -- Data for Name: category; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY category (id, parent_id, level, weight, name) FROM stdin;
-1	0	1	15	Первая
-2	0	1	15	Первая
-3	0	1	16	Вторая
-4	0	1	16	Третья
+COPY category (id, parent_id, level, weight, name, active, url) FROM stdin;
+5	1	2	17	1.3. Пятавя - второй уровень	t	/
+1	0	1	15	1. Первый уровень	t	/
+3	0	1	16	2. Третья, первый уровень	t	/
+4	1	2	1	Четвёртая перешла в первую	t	/
+6	5	3	5	Ещё одна	t	ff
+2	1	2	15	1.2. вторая, второй уровень	t	http://localhost:8080/admin/categories
 \.
 
 
@@ -67,6 +71,14 @@ COPY category (id, parent_id, level, weight, name) FROM stdin;
 
 ALTER TABLE ONLY category
     ADD CONSTRAINT category_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: category level; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE category
+    ADD CONSTRAINT level CHECK (((level > 0) AND (level <= 3))) NOT VALID;
 
 
 --

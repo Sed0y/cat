@@ -1,31 +1,81 @@
 
-#AccessTables
-{
-	width: 100%;
+
+#mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a, #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a {
+		padding: 0em;
+		padding-left: 2.75em;
+	}
+
+
+#categories-view-admin_panel {
+}
+	
+#categories-view-admin_panel .category-level-1-block,
+#categories-view-admin_panel .category-level-2-block,
+#categories-view-admin_panel .category-level-1,
+#categories-view-admin_panel .category-level-2,
+#categories-view-admin_panel .category-level-3	{
+		
+		padding: 6px;
+		padding-left: 22px;
+		padding-right: 0px;
+}
+	
+#categories-view-admin_panel .category-level-1,
+#categories-view-admin_panel .category-level-2,
+#categories-view-admin_panel .category-level-3 {		
+		border: solid 1px #e2e2e2;		
+		display: block;
+		padding-left: 18px;
+		background-color: #f9f9f9;
+		margin-bottom: 3px;
+		padding-right: 22px;
+		
+	}
+	
+#categories-view-admin_panel .category-level-3	{
+		color: #333;
+		border: 0px;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		border-left: solid 1px #e2e2e2;			
+		border-right: solid 1px #e2e2e2;	
+		margin-bottom: 0px;		
+}	
+
+#categories-view-admin_panel .inactive{
+	background-color: #f1f1f1;
+	color: #ababab;
+	
 }
 
-#AccessTables .Update,
-#ReloadOISUU
-{
-	font-weight: bold;
-	padding-left: 5px;
-	padding-right: 5px;
-	margin-left: 10px;
-	cursor: pointer;
+.cat-checkbox{
+	margin-top: 14px;
 }
 
-#AccessTables .Update:hover,
-#ReloadOISUU:hover
-{
-	color: #bb5353;
+.cat-action{
+	padding-top:3px;
+	float:right;
+	font-size: 0.75rem;
+	color:#c1c1c1;
 }
 
+.cat-action:hover{
+	text-decoration: underline;
+	cursor:pointer;
+	color:#af7877;
+}
 
+.cat-weight{
+	padding-left:  12px;
+	font-size: 0.75rem;
+	color:#c5cbce;
+}
 
-
-
-
-
+.cat-url{
+	padding-left:  22px;
+	font-size: 0.85rem;
+	color:#979c9e;
+}
 
 
 

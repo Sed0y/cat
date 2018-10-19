@@ -11,14 +11,14 @@
 		
 		
 		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Система">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" data-parent="#exampleAccordion" href="#collapseSystem">
+          <a class="nav-link nav-link-collapse collapse" data-toggle="collapse" data-parent="#exampleAccordion" href="#collapseSystem" >
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Система</span>
           </a>
-		  <ul class="sidenav-second-level collapse" id="collapseSystem">
+		  <ul class="sidenav-second-level collapse show" id="collapseSystem">
             <li>				
               <a href="/admin/categories">Категории</a>
-            </li>            		
+            </li>   			
           </ul>
         </li>	
 		

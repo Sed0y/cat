@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"html/template"
+
 	"github.com/astaxie/beego"
 )
 
@@ -19,7 +21,9 @@ func (c *AdminController) Dashboard() {
 
 func (c *AdminController) Categories() {
 
-	c.Data["Categories"] = App.Categories.List
+	c.Data["CategoriesRender"] = template.HTML(App.Categories.RenderToAdminPanel())
+	c.Data["CategoriesSelectRender"] = template.HTML(App.Categories.RenderSelectList())
+	c.Data["CategoriesSelectWeight"] = template.HTML(App.Categories.RenderWeightSelectList())
 
 	c.Layout = "layout/default.tpl"
 	c.TplName = "category/categories.tpl"
