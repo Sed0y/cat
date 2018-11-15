@@ -4,7 +4,7 @@ import (
 	"cat/conf"
 	"cat/models/entities"
 	//"fmt"
-	"log"
+	//"log"
 	"sort"
 	"strconv"
 
@@ -12,58 +12,21 @@ import (
 )
 
 type Categories struct {
-	List []models.Category
+	List []*models.Category
 }
 
 // Загружает категории из БД
-// как есть, перезаписываются
-// *
 func (c *Categories) Load() bool {
 
-	var id []byte
-	var parent_id []byte
-	var level []byte
-	var weight []byte
-	var name []byte
-	var active []byte
-	var url []byte
-
-	var current models.Category
-
-	rows, err := conf.DB_postgres.Query("SELECT id, parent_id, level, weight, name, active, url FROM public.category order by weight desc")
-	defer rows.Close()
-
-	if err != nil {
-		log.Fatal(err)
-		return false
-	}
-
-	c.List = c.List[:0]
-
-	for rows.Next() {
-		err = rows.Scan(&id, &parent_id, &level, &weight, &name, &active, &url)
-
-		if err != nil {
-			log.Fatal(err)
-			return false
-		}
-
-		current.Id, _ = strconv.Atoi(string(id))
-		current.ParentId, _ = strconv.Atoi(string(parent_id))
-		current.Level, _ = strconv.Atoi(string(level))
-		current.Weight, _ = strconv.Atoi(string(weight))
-		current.Name = string(name)
-		if string(active) == "true" {
-			current.Active = true
-		} else {
-			current.Active = false
-		}
-		current.URL = string(url)
-
-		c.List = append(c.List, current)
-	}
+	//qs.OrderBy("-profile__age", "profile")
+	// ORDER BY profile.age DESC, profile_id ASC
+	qs := conf.AppOrm.QueryTable("category")
+	qs.OrderBy("id").All(&c.List)
+	//qs.All(&c.List)
+	//conf.AppOrm.QueryTable("category").All(&c.List)
 
 	return true
+
 }
 
 // Добавить категорию в список
@@ -84,7 +47,12 @@ func (c *Categories) Add(
 	NewOne.Weight = Weight
 	NewOne.Name = Name
 	NewOne.Active = Active
-	NewOne.URL = Url
+	NewOne.Url = Url
+
+	/*
+		Проверки данных ???
+
+	*/
 
 	result := NewOne.Create()
 
@@ -110,7 +78,7 @@ func (c *Categories) Add(
 // *
 func (c *Categories) Remove(CategoryID int) bool {
 
-	// !!! Проверку на наличие дете !!!
+	// !!! Проверку на наличие детей !!!
 	for i := 0; i < len(c.List); i++ {
 		if c.List[i].Id == CategoryID {
 			if c.List[i].Delete() {
@@ -180,7 +148,7 @@ func (c *Categories) RenderToAdminPanel() string {
 		cats += "</span>"
 
 		cats += "<span class=\"cat-url\"><i>"
-		cats += c.List[i].URL
+		cats += c.List[i].Url
 		cats += "</i></span>"
 
 		cats += "<span class=\"cat-action\">"
@@ -232,7 +200,7 @@ func (c *Categories) RenderToAdminPanel() string {
 			cats += "</span>"
 
 			cats += "<span class=\"cat-url\"><i>"
-			cats += c.List[j].URL
+			cats += c.List[j].Url
 			cats += "</i></span>"
 
 			cats += "<span class=\"cat-action\">"
@@ -279,7 +247,7 @@ func (c *Categories) RenderToAdminPanel() string {
 					cats += "</span>"
 
 					cats += "<span class=\"cat-url\"><i>"
-					cats += c.List[k].URL
+					cats += c.List[k].Url
 					cats += "</i></span>"
 
 					cats += "<span class=\"cat-action\">"
@@ -367,7 +335,7 @@ func (c *Categories) RenderSelectList() string {
 }
 
 // Генерирует список тега select для веса
-// просто цифры, ничего с категориями не связанол
+// просто цифры, ничего с категориями не связано
 func (c *Categories) RenderWeightSelectList() string {
 
 	var html_weight_select string

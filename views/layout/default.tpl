@@ -81,6 +81,11 @@
     <!-- <script src="/static/js/sb/sb-admin-datatables.js"></script> -->
     
 	<!-- 0aj8q6X9 ></script>		 -->	
+	<!-- 
+		https://dd.zerotheme.com/demo/boot345/zDancing/index.html 
+		http://bootstraptema.ru/stuff/templates_bootstrap/landing_page/natasha/6-1-0-3031
+		
+	-->
   
   
   </div>

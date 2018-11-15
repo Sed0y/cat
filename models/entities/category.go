@@ -2,16 +2,21 @@ package models
 
 import (
 	"cat/conf"
+
 	"strconv"
 
-	//"fmt"
+	//	"fmt"
 	"log"
 
 	_ "github.com/lib/pq"
 )
 
+func init() {
+
+}
+
 type Category struct {
-	Id int
+	Id int `form:"-"`
 
 	ParentId int // Идентификатор родительской категории
 
@@ -21,11 +26,19 @@ type Category struct {
 	// иерархия фиксируется вручную, а не вычисляется каждый раз
 	Level int
 
-	Weight int    // Вес категории для сортировки
-	Name   string // Название категории
-	Active bool   // Активна/отображается или нет
-	URL    string // Адрес категории
+	Weight int // Вес категории для сортировки
 
+	// Название категории
+	Name string `form:"name,text,name:" valid:"MinSize(5);MaxSize(20)"`
+
+	Active bool   // Активна/отображается или нет
+	Url    string // Адрес категории
+
+}
+
+// Название таблицы в БД
+func (c *Category) TableName() string {
+	return "category"
 }
 
 func (c *Category) Create() bool {
@@ -49,70 +62,24 @@ func (c *Category) Create() bool {
 		}
 	}
 
-	query := "INSERT INTO public.category( "
-	query += "  id, parent_id, level, weight, name, active, url)"
-	query += "VALUES ( "
-	query += string(max_id) + ", "
-	query += strconv.Itoa(c.ParentId) + ", "
-	query += strconv.Itoa(c.Level) + ", "
-	query += strconv.Itoa(c.Weight) + ", "
-	query += "'" + c.Name + "', "
-	query += " false ,"
-	query += "'" + c.URL + "' "
-	query += ");"
-
-	_, err = conf.DB_postgres.Exec(query)
-
+	c.Id, _ = strconv.Atoi(string(max_id))
+	_, err = conf.AppOrm.Insert(c)
 	if err != nil {
-		//fmt.Println(query)
-		log.Fatal(err)
 		return false
 	}
 
 	return true
+
 }
 
 func (c *Category) Update() bool {
 
-	query := "UPDATE public.category "
-	query += "SET "
-	query += "  parent_id = " + strconv.Itoa(c.ParentId) + " , "
-	query += "  level = " + strconv.Itoa(c.Level) + ", "
-	query += "  weight = " + strconv.Itoa(c.Weight) + ", "
-	query += "  name = '" + c.Name + "', "
-	if c.Active == true {
-		query += "  active = true, "
-	} else {
-		query += "  active = false, "
-	}
-	query += "  name = '" + c.URL + "' "
-	query += "WHERE "
-	query += "  id = " + strconv.Itoa(c.Id) + ";"
-
-	_, err := conf.DB_postgres.Exec(query)
-
-	if err != nil {
-		//fmt.Println(sql_res)
-		log.Fatal(err)
-		return false
-	}
-
+	conf.AppOrm.Update(c)
 	return true
 }
 
 func (c *Category) Delete() bool {
 
-	query := "DELETE FROM public.category "
-	query += "WHERE "
-	query += "  id = " + strconv.Itoa(c.Id) + ";"
-
-	_, err := conf.DB_postgres.Exec(query)
-
-	if err != nil {
-		//fmt.Println(sql_res)
-		log.Fatal(err)
-		return false
-	}
-
+	conf.AppOrm.Delete(c)
 	return true
 }
