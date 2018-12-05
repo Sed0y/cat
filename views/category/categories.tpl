@@ -33,43 +33,49 @@
 							<div class="form-group row">
 								<label for="cat-name" class="col-sm-2 col-form-label" >Название:</label>
 								<div class="col-sm-10">  					
-								  <input type="text" class="form-control" id="cat-name">
+								  <input type="text" class="form-control" id="new-cat-name">
 								</div>		
 							</div>
 
 							<div class="form-group row">
 								<label for="cat-name" class="col-sm-2 col-form-label">Родитель:</label>
 								<div class="col-sm-10">
+									<select class="form-control" id="new-cat-parent">
+										<option value="0">Нет</option>
 									{{.CategoriesSelectRender}}
+									</select>
 								</div>
 							</div>
 							
 							<div class="form-group row">
 								<label for="cat-active" class="col-sm-2 col-form-label">Активный:</label>
 								<div class="col-sm-10">
-									<input type="checkbox" id="cat-active" class="cat-checkbox">
+									<input type="checkbox" class="cat-checkbox" id="new-cat-active" >
 								</div>
 							</div>
 
 							<div class="form-group row">
 								<label for="cat-weight" class="col-sm-2 col-form-label">Вес:</label>
 								<div class="col-sm-10">
-									{{.CategoriesSelectWeight}}
+									<select class="form-control" id="new-cat-weight">
+										{{.CategoriesSelectWeight}}
+									</select>
 								</div>
 							</div>
 							  
 							<div class="form-group row">
 								<label for="cat-url" class="col-sm-2 col-form-label">URL:</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="cat-url">
+									<input type="text" class="form-control" id="new-cat-url">
 								</div>
 							</div>
 						
 							<div class="form-group row">
 								<div class="col-sm-12">
-								  <button type="submit" 
+								  <button 
+										type="submit" 
 										class="btn btn-primary float-sm-right"
-										onClick="return ValidPerson(this.form);" >Добавить</button>
+										>Добавить</button>
 								</div>
 							  </div>
 							

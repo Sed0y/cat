@@ -10,7 +10,7 @@ import (
 	_ "cat/routers"
 	"database/sql"
 
-	//	"github.com/astaxie/beego"
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 
 	"fmt"
@@ -114,6 +114,6 @@ func main() {
 
 		fmt.Println("start beego!")
 	*/
-	//beego.Run()
+	beego.Run()
 
 }

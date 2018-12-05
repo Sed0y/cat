@@ -293,8 +293,6 @@ func (c *Categories) RenderSelectList() string {
 		return true
 	})
 
-	html_select = "<select class=\"form-control\" id=\"cat-parent\">" + new_line
-
 	for i := 0; i < len(c.List); i++ {
 		if c.List[i].Level != 1 {
 			continue
@@ -329,7 +327,7 @@ func (c *Categories) RenderSelectList() string {
 		}
 	}
 
-	html_select += "</select>" + new_line
+	html_select += new_line
 
 	return html_select
 }
@@ -341,15 +339,13 @@ func (c *Categories) RenderWeightSelectList() string {
 	var html_weight_select string
 	new_line := "\r\n"
 
-	html_weight_select = "<select class=\"form-control\" id=\"cat-weight\">" + new_line
-
 	for i := 1; i < 51; i++ {
 		html_weight_select += "	<option value=\"" + strconv.Itoa(i) + "\" >"
 		html_weight_select += strconv.Itoa(i)
 		html_weight_select += "	</option>"
 	}
 
-	html_weight_select += "</select>" + new_line
+	html_weight_select += new_line
 
 	return html_weight_select
 }
